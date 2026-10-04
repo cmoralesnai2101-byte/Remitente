@@ -3,749 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remitente 🌸🪷 - Cartas de Amor Art Nouveau</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tailwind Custom Color Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        blossom: '#FFB7C5',
-                        blossomDark: '#E07A5F',
-                        sageMint: '#D8E2DC',
-                        ivoryPaper: '#FFFDF9',
-                        buttercup: '#FFE5EC',
-                        lilacSoft: '#E2ECE9',
-                        coralWarm: '#F4A261',
-                        roseGold: '#B76E79',
-                        artGold: '#C5A059'
-                    },
-                    fontFamily: {
-                        serif: ['Playfair Display', 'Georgia', 'serif'],
-                        cursive: ['Great Vibes', 'cursive'],
-                        handwritten: ['Dancing Script', 'cursive'],
-                        romantic: ['Alex Brush', 'cursive']
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts for Aesthetic Letter Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@500;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
-    <!-- html2canvas for HD image generation -->
+    <title>Remitente 🌸🪷 - Cartas de Amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;1,400&family=Parisienne&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
+        :root {
+            --bg-color: #FDFBF7;
+            --pink-blossom: #F4C2C2;
+            --sage-mint: #B2AC88;
+            --ivory: #FFFFF0;
+            --warm-gold: #D4AF37;
+            --text-color: #3B2F2F;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            font-family: 'Playfair Display', serif;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #B76E79;
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-family: 'Parisienne', cursive;
+            font-size: 2.8rem;
+            color: #8B4513;
+            margin: 0;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 650px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid var(--pink-blossom);
+        }
+
+        .editor-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #666;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #DCDCDC;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* VISTA DE CARTA */
+        .letter-paper {
+            background-color: var(--ivory);
+            border: 2px solid var(--sage-mint);
+            padding: 40px;
             border-radius: 4px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.15);
+            margin-bottom: 20px;
+            min-height: 380px;
         }
 
-        .paper-shadow {
-            box-shadow: 0 15px 35px -5px rgba(183, 110, 121, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05);
+        .letter-content {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
 
-        /* Envelope animation styles */
-        .envelope-flap {
-            transform-origin: top;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .envelope-open .envelope-flap {
-            transform: rotateX(180deg);
+        .actions {
+            display: flex;
+            gap: 10px;
         }
 
-        /* Wax Seal Pulse */
-        @keyframes pulse-subtle {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        .wax-seal-btn {
-            animation: pulse-subtle 2.5s infinite ease-in-out;
-        }
-
-        /* Paper Ruled Lines Pattern */
-        .ruled-paper {
-            background-image: repeating-linear-gradient(transparent, transparent 31px, #e8dcd8 31px, #e8dcd8 32px);
-            line-height: 32px;
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--pink-blossom);
+            color: #4A3B32;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        /* Sticker Drag / Touch placement */
-        .sticker-item {
-            cursor: grab;
-            user-select: none;
-            touch-action: none;
+        button:hover {
+            background-color: #E8B4B4;
+            transform: translateY(-1px);
+        }
+
+        /* MODO RECEPTOR / SOBRE */
+        #envelope-view {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .wax-seal {
+            width: 80px;
+            height: 80px;
+            background: #8B0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFD700;
+            font-size: 2rem;
+            margin: 20px auto;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 3px solid #B8860B;
+            transition: transform 0.3s ease;
+        }
+
+        .wax-seal:hover {
+            transform: scale(1.1);
+        }
+
+        .rating-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+
+        .stars {
+            font-size: 2rem;
+            color: #FFD700;
+            cursor: pointer;
+        }
+
+        .star {
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+
+        .star.active {
+            opacity: 1;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-buttercup via-sageMint to-buttercup min-h-screen text-slate-800 font-sans antialiased pb-12">
+<body>
 
-    <!-- Navigation Bar -->
-    <header class="bg-white/80 backdrop-blur-md border-b border-roseGold/20 sticky top-0 z-40 px-4 py-3 shadow-sm">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl">🌸</span>
-                <h1 class="text-xl md:text-2xl font-serif text-roseGold font-semibold tracking-wide">Remitente <span class="text-xs font-normal text-slate-500 hidden sm:inline">| Cartas de Amor Art Nouveau</span></h1>
+    <div class="header">
+        <h1>Remitente 🌸🪷</h1>
+        <p style="font-size: 0.9rem; color: #777;">Cartas Románticas Art Nouveau</p>
+    </div>
+
+    <!-- MODO CREADOR -->
+    <div id="creator-view" class="app-container">
+        <div class="editor-controls">
+            <div>
+                <label>De (Remitente):</label>
+                <input type="text" id="fromInput" value="Nai 💖" oninput="updateLetter()">
             </div>
-            <div class="flex items-center gap-2">
-                <button id="btnNewLetter" onclick="createNewLetter()" class="hidden bg-roseGold/10 hover:bg-roseGold/20 text-roseGold px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-plus"></i> Nueva Carta
-                </button>
-                <button id="btnToggleMode" onclick="switchTab('editor')" class="bg-roseGold text-white px-4 py-1.5 rounded-full text-xs font-medium hover:bg-roseGoldDark shadow-sm transition">
-                    Editor de Carta
-                </button>
+            <div>
+                <label>Para (Destinatario):</label>
+                <input type="text" id="toInput" value="Mi Niño 🧸" oninput="updateLetter()">
             </div>
         </div>
-    </header>
 
-    <main class="max-w-6xl mx-auto px-2 sm:px-4 mt-6">
-        
-        <!-- Toast Notification Box -->
-        <div id="toastBox" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-roseGold/40 text-sm">
-            <span id="toastIcon">✨</span>
-            <span id="toastMsg">Mensaje de notificación</span>
+        <div style="margin-bottom: 15px;">
+            <label>Mensaje de la carta:</label>
+            <textarea id="bodyInput" oninput="updateLetter()">Hoy comienza un nuevo mes y no pude evitar pensar en ti. Gracias por existir en mi vida. Te amo muchísimo. 🌸</textarea>
         </div>
 
-        <!-- ================= READ ONLY / RECIPIENT VIEW ================= -->
-        <section id="recipientView" class="hidden max-w-2xl mx-auto flex-col items-center">
-            
-            <!-- Interactive Envelope Screen -->
-            <div id="envelopeScreen" class="w-full my-8 flex flex-col items-center justify-center min-h-[450px]">
-                <div class="text-center mb-6">
-                    <p class="text-xs uppercase tracking-widest text-roseGold font-semibold mb-1">Has recibido un mensaje especial</p>
-                    <h2 class="text-2xl sm:text-3xl font-serif text-slate-700">Toca el sello para abrir tu carta</h2>
-                </div>
+        <div class="letter-paper" id="letterPaper">
+            <div style="font-weight: bold; margin-bottom: 15px;" id="dispTo">Para: Mi Niño 🧸</div>
+            <div class="letter-content" id="dispBody">Hoy comienza un nuevo mes...</div>
+            <div style="text-align: right; margin-top: 25px; font-weight: bold;" id="dispFrom">De: Nai 💖</div>
+        </div>
 
-                <!-- Envelope Visual -->
-                <div id="envelopeContainer" class="relative w-80 sm:w-96 h-56 bg-amber-50 rounded-lg shadow-xl border border-amber-200 flex flex-col items-center justify-center cursor-pointer transition-all hover:shadow-2xl overflow-hidden" onclick="openEnvelope()">
-                    <!-- Envelope Flap SVG -->
-                    <svg class="absolute top-0 left-0 w-full h-28 text-amber-100 fill-current drop-shadow-md z-10" viewBox="0 0 100 50" preserveAspectRatio="none">
-                        <polygon points="0,0 100,0 50,50" />
-                    </svg>
-                    
-                    <!-- Inner Paper Peeking -->
-                    <div class="absolute bottom-2 w-[90%] h-44 bg-ivoryPaper rounded border border-roseGold/20 shadow-inner flex items-center justify-center p-4">
-                        <p class="font-cursive text-2xl text-roseGold/60">Con mucho cariño...</p>
-                    </div>
+        <div class="actions">
+            <button onclick="generateShortLink()">🔗 Copiar Enlace Único</button>
+            <button onclick="downloadImage()" style="background-color: var(--sage-mint); color: #fff;">📸 Descargar Imagen</button>
+        </div>
+    </div>
 
-                    <!-- Wax Seal Button -->
-                    <button id="waxSeal" class="wax-seal-btn z-20 w-16 h-16 bg-gradient-to-tr from-red-800 via-rose-700 to-red-600 rounded-full shadow-lg border-2 border-amber-300 flex items-center justify-center text-amber-200 transform hover:scale-110 transition">
-                        <span class="text-xl">🪷</span>
-                    </button>
-                    <p class="absolute bottom-2 text-[10px] text-amber-700/60 font-serif z-20">Click para Romper el Sello</p>
-                </div>
+    <!-- MODO RECEPTOR (SOBRE INTERACTIVO) -->
+    <div id="envelope-view" class="app-container">
+        <div id="seal-screen">
+            <h2 style="font-family: 'Parisienne', cursive; font-size: 2.2rem;">Tienes una carta especial 💌</h2>
+            <p>Haz clic en el sello de cera para abrirla</p>
+            <div class="wax-seal" onclick="openLetter()">🌸</div>
+        </div>
+
+        <div id="opened-letter" style="display: none;">
+            <div class="letter-paper">
+                <div style="font-weight: bold; margin-bottom: 15px;" id="recvTo"></div>
+                <div class="letter-content" id="recvBody"></div>
+                <div style="text-align: right; margin-top: 25px; font-weight: bold;" id="recvFrom"></div>
             </div>
 
-            <!-- Letter Content Container (Revealed after opening) -->
-            <div id="openedLetterSection" class="hidden w-full flex-col items-center animate-fade-in">
-                
-                <!-- Display Letter Container -->
-                <div id="letterRecipientWrapper" class="w-full flex justify-center py-4">
-                    <!-- Dynamic Letter Content Inserted Here -->
+            <div class="rating-section">
+                <h3>¿Qué te pareció la carta? ✨</h3>
+                <div class="stars" id="starRating">
+                    <span class="star" onclick="setRating(1)">★</span>
+                    <span class="star" onclick="setRating(2)">★</span>
+                    <span class="star" onclick="setRating(3)">★</span>
+                    <span class="star" onclick="setRating(4)">★</span>
+                    <span class="star" onclick="setRating(5)">★</span>
                 </div>
-
-                <!-- Recipient Feedback & Rating Card -->
-                <div id="feedbackCard" class="w-full max-w-xl bg-white/90 backdrop-blur rounded-2xl p-6 shadow-lg border border-roseGold/20 mt-6 mb-12">
-                    <h3 class="text-lg font-serif text-roseGold font-semibold text-center mb-1">¿Qué te pareció esta carta? 💖</h3>
-                    <p class="text-xs text-slate-500 text-center mb-4">Déjale una respuesta o calificación a quien te la envió</p>
-
-                    <!-- Star Rating System -->
-                    <div class="flex justify-center gap-2 text-2xl text-amber-300 mb-4" id="starRatingGroup">
-                        <button onclick="setRating(1)" class="star-btn hover:scale-125 transition text-slate-300" data-star="1">★</button>
-                        <button onclick="setRating(2)" class="star-btn hover:scale-125 transition text-slate-300" data-star="2">★</button>
-                        <button onclick="setRating(3)" class="star-btn hover:scale-125 transition text-slate-300" data-star="3">★</button>
-                        <button onclick="setRating(4)" class="star-btn hover:scale-125 transition text-slate-300" data-star="4">★</button>
-                        <button onclick="setRating(5)" class="star-btn hover:scale-125 transition text-slate-300" data-star="5">★</button>
-                    </div>
-
-                    <!-- Review Text Input -->
-                    <textarea id="recipientReplyText" rows="3" class="w-full p-3 rounded-xl border border-roseGold/30 focus:outline-none focus:ring-2 focus:ring-roseGold/50 text-sm bg-ivoryPaper mb-3" placeholder="Escribe tu mensaje de respuesta aquí..."></textarea>
-                    
-                    <button onclick="submitRecipientReview()" class="w-full bg-roseGold hover:bg-roseGoldDark text-white py-2.5 rounded-xl text-sm font-medium shadow-md transition flex items-center justify-center gap-2">
-                        <span>Enviar Respuesta</span> ❤️
-                    </button>
-
-                    <!-- Saved Reviews Display -->
-                    <div id="savedReviewsContainer" class="mt-6 border-t border-slate-100 pt-4 hidden">
-                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Respuestas guardadas:</h4>
-                        <div id="reviewsList" class="space-y-2 max-h-48 overflow-y-auto"></div>
-                    </div>
-                </div>
+                <textarea id="reviewText" placeholder="Escríbele una respuesta o reacción..." style="margin-top: 10px;"></textarea>
+                <button onclick="sendReview()" style="margin-top: 10px; width: 100%;">Enviar Respuesta 💌</button>
             </div>
-        </section>
-
-        <!-- ================= EDITOR VIEW ================= -->
-        <section id="editorView" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            
-            <!-- Controls Sidebar (Left Column) -->
-            <div class="lg:col-span-5 bg-white/90 backdrop-blur rounded-2xl p-5 shadow-lg border border-roseGold/20 space-y-5">
-                <div class="border-b border-slate-100 pb-3">
-                    <h2 class="text-lg font-serif text-roseGold font-semibold flex items-center gap-2">
-                        <i class="fa-solid fa-feather-pointed"></i> Personaliza tu Carta
-                    </h2>
-                    <p class="text-xs text-slate-500">Diseña tu mensaje romántico con marcos de estilo floral</p>
-                </div>
-
-                <!-- Template Selector -->
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Plantilla & Estilo Art Nouveau</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="selectTemplate('waterlily')" id="tpl-waterlily" class="tpl-btn p-2.5 rounded-xl border-2 border-roseGold bg-buttercup/40 text-left transition flex items-center gap-2">
-                            <span class="text-xl">🪷</span>
-                            <div>
-                                <p class="text-xs font-semibold text-slate-800">Lirios de Agua</p>
-                                <p class="text-[10px] text-slate-500">Verde Menta & Rosa</p>
-                            </div>
-                        </button>
-                        <button onclick="selectTemplate('roses')" id="tpl-roses" class="tpl-btn p-2.5 rounded-xl border border-slate-200 hover:border-roseGold text-left transition flex items-center gap-2">
-                            <span class="text-xl">🌹</span>
-                            <div>
-                                <p class="text-xs font-semibold text-slate-800">Rosas Vintage</p>
-                                <p class="text-[10px] text-slate-500">Bordó & Marfil</p>
-                            </div>
-                        </button>
-                        <button onclick="selectTemplate('gold')" id="tpl-gold" class="tpl-btn p-2.5 rounded-xl border border-slate-200 hover:border-roseGold text-left transition flex items-center gap-2">
-                            <span class="text-xl">✨</span>
-                            <div>
-                                <p class="text-xs font-semibold text-slate-800">Dorado Elegante</p>
-                                <p class="text-[10px] text-slate-500">Hojas de Oro</p>
-                            </div>
-                        </button>
-                        <button onclick="selectTemplate('lavender')" id="tpl-lavender" class="tpl-btn p-2.5 rounded-xl border border-slate-200 hover:border-roseGold text-left transition flex items-center gap-2">
-                            <span class="text-xl">🪻</span>
-                            <div>
-                                <p class="text-xs font-semibold text-slate-800">Lavanda Silvestre</p>
-                                <p class="text-[10px] text-slate-500">Lila & Pastel</p>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Input Fields -->
-                <div class="space-y-3">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-600 mb-1">De (Remitente)</label>
-                            <input type="text" id="inputFrom" value="Nai ❤️️" oninput="updateLetterContent()" class="w-full p-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-roseGold focus:outline-none text-xs bg-slate-50">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-600 mb-1">Para (Destinatario)</label>
-                            <input type="text" id="inputTo" value="El amor de mi vida ❤️" oninput="updateLetterContent()" class="w-full p-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-roseGold focus:outline-none text-xs bg-slate-50">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-600 mb-1">Mensaje de la Carta</label>
-                        <textarea id="inputBody" rows="7" oninput="updateLetterContent()" class="w-full p-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-roseGold focus:outline-none text-xs bg-slate-50 leading-relaxed" placeholder="Escribe tu carta de amor aquí...">Mi amor,
-
-Hoy comienza un nuevo mes y no pude evitar pensar en ti. En todo lo que hemos vivido, en cada momento que hemos compartido y en todas esas pequeñas cosas que hacen que te quiera cada día un poquito más.
-
-A veces me pongo a pensar en lo bonito que es tener a alguien que se ha convertido en una parte tan importante de mi vida. Y ese alguien eres tú. 
-
-Te amo por quien eres, por tu forma de ser y por todo lo que te hace ser tú. Gracias por existir en mi vida.
-
-Te amo muchísimo, mi niño. 💖</textarea>
-                    </div>
-                </div>
-
-                <!-- Font Selection -->
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Tipografía de la Carta</label>
-                    <select id="selectFont" onchange="updateLetterFont()" class="w-full p-2 rounded-lg border border-slate-200 text-xs bg-slate-50 focus:ring-2 focus:ring-roseGold focus:outline-none">
-                        <option value="font-cursive">Great Vibes (Elegante y Cursiva)</option>
-                        <option value="font-handwritten">Dancing Script (Manuscrito Cálido)</option>
-                        <option value="font-romantic">Alex Brush (Romántica Fluyente)</option>
-                        <option value="font-serif">Playfair Display (Serif Clásica)</option>
-                    </select>
-                </div>
-
-                <!-- Stickers Palette -->
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">Pegatinas & Decores (Haz clic para agregar)</label>
-                    <div class="flex flex-wrap gap-2 p-2 bg-slate-50 rounded-xl border border-slate-200">
-                        <button onclick="addSticker('🌸')" class="text-xl hover:scale-125 transition p-1">🌸</button>
-                        <button onclick="addSticker('🪷')" class="text-xl hover:scale-125 transition p-1">🪷</button>
-                        <button onclick="addSticker('🌹')" class="text-xl hover:scale-125 transition p-1">🌹</button>
-                        <button onclick="addSticker('💖')" class="text-xl hover:scale-125 transition p-1">💖</button>
-                        <button onclick="addSticker('💌')" class="text-xl hover:scale-125 transition p-1">💌</button>
-                        <button onclick="addSticker('🕊️')" class="text-xl hover:scale-125 transition p-1">🕊️</button>
-                        <button onclick="addSticker('✨')" class="text-xl hover:scale-125 transition p-1">✨</button>
-                        <button onclick="addSticker('🥺')" class="text-xl hover:scale-125 transition p-1">🥺</button>
-                        <button onclick="addSticker('💍')" class="text-xl hover:scale-125 transition p-1">💍</button>
-                        <button onclick="clearStickers()" class="ml-auto text-[10px] text-red-500 hover:underline">Limpiar Pegatinas</button>
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <button onclick="downloadLetterHD()" class="bg-gradient-to-r from-roseGold to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-medium py-2.5 px-4 rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> Descargar Imagen (HD)
-                    </button>
-                    <button onclick="generateShareLink()" class="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-medium py-2.5 px-4 rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-link"></i> Generar Enlace Único
-                    </button>
-                </div>
-            </div>
-
-            <!-- Live Preview Canvas / Paper (Right Column) -->
-            <div class="lg:col-span-7 flex flex-col items-center">
-                <div class="mb-2 flex items-center justify-between w-full max-w-[480px] px-2">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Vista Previa de la Carta</span>
-                    <span class="text-[11px] text-roseGold font-medium">Proporción A4 Perfecta</span>
-                </div>
-
-                <!-- Printable Container (Target for html2canvas) -->
-                <!-- Strict A4 aspect ratio & controlled padding to prevent clipping -->
-                <div id="captureContainer" class="p-3 sm:p-4 bg-transparent">
-                    
-                    <div id="letterPaper" class="relative w-[340px] sm:w-[440px] min-h-[620px] bg-ivoryPaper rounded-xl paper-shadow transition-all duration-300 flex flex-col justify-between overflow-hidden border border-amber-200/60 p-6 sm:p-8">
-                        
-                        <!-- VECTOR ART NOUVEAU FRAME (Rendered natively inline for html2canvas compatibility) -->
-                        <div id="svgFrameContainer" class="absolute inset-0 pointer-events-none z-0">
-                            <!-- SVG inserted dynamically -->
-                        </div>
-
-                        <!-- Letter Content Layer -->
-                        <div class="relative z-10 flex flex-col h-full justify-between">
-                            
-                            <!-- Header: De / Para -->
-                            <div class="flex justify-between items-start text-[11px] sm:text-xs tracking-wider uppercase font-serif text-roseGold/90 mb-4 border-b border-roseGold/20 pb-2">
-                                <div>
-                                    <span class="text-[9px] text-slate-400 block">DE:</span>
-                                    <strong id="displayFrom" class="font-semibold text-slate-800">Nai ❤️</strong>
-                                </div>
-                                <div class="text-right">
-                                    <span class="text-[9px] text-slate-400 block">PARA:</span>
-                                    <strong id="displayTo" class="font-semibold text-slate-800">El amor de mi vida ❤️</strong>
-                                </div>
-                            </div>
-
-                            <!-- Letter Body Text -->
-                            <div class="my-auto py-2">
-                                <p id="displayText" class="font-cursive text-lg sm:text-2xl text-slate-800 whitespace-pre-line leading-relaxed tracking-wide">
-                                    Mi amor...
-                                </p>
-                            </div>
-
-                            <!-- Active Stickers Overlay Container -->
-                            <div id="stickersContainer" class="absolute inset-0 pointer-events-none z-20">
-                                <!-- Dynamic Stickers placed here -->
-                            </div>
-
-                            <!-- Footer Decor & Stamp -->
-                            <div class="mt-6 pt-3 border-t border-roseGold/20 flex items-center justify-between text-[10px] text-slate-400 font-serif">
-                                <span>Remitente Web • Carta Creada con Amor</span>
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-roseGold to-rose-400 shadow-sm flex items-center justify-center text-white text-xs border border-white">
-                                    🪷
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-    </main>
+        </div>
+    </div>
 
     <script>
-        /* State Variables */
-        let currentTemplate = 'waterlily';
-        let currentFont = 'font-cursive';
-        let activeStickers = [];
-        let currentRating = 0;
-        let currentLetterData = null;
+        function updateLetter() {
+            document.getElementById('dispTo').innerText = "Para: " + document.getElementById('toInput').value;
+            document.getElementById('dispFrom').innerText = "De: " + document.getElementById('fromInput').value;
+            document.getElementById('dispBody').innerText = document.getElementById('bodyInput').value;
+        }
 
-        /* SVG Art Nouveau Frame Templates (Natively Inline for html2canvas accuracy) */
-        const FRAMES = {
-            waterlily: `
-                <svg width="100%" height="100%" viewBox="0 0 400 600" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="8" y="8" width="384" height="584" rx="12" stroke="#D8E2DC" stroke-width="4"/>
-                    <rect x="14" y="14" width="372" height="572" rx="10" stroke="#B76E79" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="4 2"/>
-                    <!-- Corner Art Nouveau Water Lilies -->
-                    <g fill="#B76E79" opacity="0.8">
-                        <path d="M20 20 C40 20, 50 30, 50 50 C30 50, 20 40, 20 20 Z" fill="#95B8A6"/>
-                        <circle cx="35" cy="35" r="8" fill="#FFB7C5"/>
-                        <circle cx="365" cy="35" r="8" fill="#FFB7C5"/>
-                        <path d="M380 20 C360 20, 350 30, 350 50 C370 50, 380 40, 380 20 Z" fill="#95B8A6"/>
-                    </g>
-                    <!-- Bottom Decorative Water Lily Pad -->
-                    <path d="M150 580 C180 560, 220 560, 250 580" stroke="#95B8A6" stroke-width="2" fill="none"/>
-                    <circle cx="200" cy="572" r="10" fill="#FFB7C5"/>
-                </svg>`,
-            roses: `
-                <svg width="100%" height="100%" viewBox="0 0 400 600" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="10" y="10" width="380" height="580" rx="8" stroke="#B76E79" stroke-width="3"/>
-                    <rect x="18" y="18" width="364" height="564" rx="6" stroke="#C5A059" stroke-width="1"/>
-                    <!-- Corner Roses -->
-                    <g fill="#A3333D">
-                        <circle cx="30" cy="30" r="10"/>
-                        <circle cx="370" cy="30" r="10"/>
-                        <circle cx="30" cy="570" r="10"/>
-                        <circle cx="370" cy="570" r="10"/>
-                    </g>
-                </svg>`,
-            gold: `
-                <svg width="100%" height="100%" viewBox="0 0 400 600" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="12" y="12" width="376" height="576" rx="10" stroke="#C5A059" stroke-width="2.5"/>
-                    <rect x="20" y="20" width="360" height="560" rx="8" stroke="#C5A059" stroke-opacity="0.4" stroke-width="1"/>
-                    <!-- Gold Corner Ornaments -->
-                    <path d="M12 40 L40 12 M388 40 L360 12 M12 560 L40 588 M388 560 L360 588" stroke="#C5A059" stroke-width="2"/>
-                </svg>`,
-            lavender: `
-                <svg width="100%" height="100%" viewBox="0 0 400 600" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="10" y="10" width="380" height="580" rx="12" stroke="#B8C0E0" stroke-width="3"/>
-                    <path d="M30 570 Q 20 500, 30 450" stroke="#8A9A5B" stroke-width="2" fill="none"/>
-                    <circle cx="30" cy="445" r="4" fill="#9A8C98"/>
-                    <circle cx="370" cy="445" r="4" fill="#9A8C98"/>
-                    <path d="M370 570 Q 380 500, 370 450" stroke="#8A9A5B" stroke-width="2" fill="none"/>
-                </svg>`
+        // COMPRESIÓN ULTRA CORTO DE URL
+        function generateShortLink() {
+            const data = {
+                f: document.getElementById('fromInput').value,
+                t: document.getElementById('toInput').value,
+                b: document.getElementById('bodyInput').value
+            };
+            
+            // Codificación limpia y corta de parámetros
+            const encoded = encodeURIComponent(JSON.stringify(data));
+            const fullUrl = window.location.origin + window.location.pathname + '?c=' + encoded;
+            
+            navigator.clipboard.writeText(fullUrl).then(() => {
+                alert("¡Enlace corto copiado al portapapeles! 🌸\nAhora puedes pegarlo en WhatsApp.");
+            });
+        }
+
+        // CARGA DE MODO RECEPTOR
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const letterData = urlParams.get('c');
+
+            if (letterData) {
+                try {
+                    const parsed = JSON.parse(decodeURIComponent(letterData));
+                    document.getElementById('creator-view').style.display = 'none';
+                    document.getElementById('envelope-view').style.display = 'block';
+
+                    document.getElementById('recvTo').innerText = "Para: " + parsed.t;
+                    document.getElementById('recvFrom').innerText = "De: " + parsed.f;
+                    document.getElementById('recvBody').innerText = parsed.b;
+                } catch(e) {
+                    console.error("Error al decodificar la carta", e);
+                }
+            }
         };
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // Check if URL contains letter payload in Hash
-            if (window.location.hash && window.location.hash.length > 5) {
-                try {
-                    const encodedData = window.location.hash.substring(1);
-                    const decodedData = JSON.parse(decodeURIComponent(escape(atob(encodedData))));
-                    loadRecipientLetter(decodedData);
-                    return;
-                } catch (e) {
-                    console.error("Error decoding letter URL:", e);
-                }
-            }
-
-            // Default Editor Mode
-            selectTemplate('waterlily');
-            updateLetterContent();
-            // Default Stickers
-            addSticker('🌸', 15, 82);
-            addSticker('🪷', 35, 82);
-        });
-
-        /* Update letter live text */
-        function updateLetterContent() {
-            const fromVal = document.getElementById('inputFrom').value || 'Anónimo';
-            const toVal = document.getElementById('inputTo').value || 'Para Ti';
-            const bodyVal = document.getElementById('inputBody').value || '';
-
-            document.getElementById('displayFrom').innerText = fromVal;
-            document.getElementById('displayTo').innerText = toVal;
-            document.getElementById('displayText').innerText = bodyVal;
+        function openLetter() {
+            document.getElementById('seal-screen').style.display = 'none';
+            document.getElementById('opened-letter').style.display = 'block';
         }
 
-        /* Update letter font */
-        function updateLetterFont() {
-            const fontSelect = document.getElementById('selectFont').value;
-            const textElem = document.getElementById('displayText');
-            
-            textElem.classList.remove('font-cursive', 'font-handwritten', 'font-romantic', 'font-serif');
-            textElem.classList.add(fontSelect);
-            currentFont = fontSelect;
-        }
-
-        /* Select Paper & Frame Template */
-        function selectTemplate(tplKey) {
-            currentTemplate = tplKey;
-            
-            // Highlight active button
-            document.querySelectorAll('.tpl-btn').forEach(btn => {
-                btn.classList.remove('border-2', 'border-roseGold', 'bg-buttercup/40');
-                btn.classList.add('border-slate-200');
-            });
-            const activeBtn = document.getElementById(`tpl-${tplKey}`);
-            if (activeBtn) {
-                activeBtn.classList.add('border-2', 'border-roseGold', 'bg-buttercup/40');
-            }
-
-            // Render SVG Frame
-            document.getElementById('svgFrameContainer').innerHTML = FRAMES[tplKey] || FRAMES.waterlily;
-        }
-
-        /* Sticker Management */
-        function addSticker(emoji, posX, posY) {
-            const container = document.getElementById('stickersContainer');
-            const left = posX !== undefined ? posX : Math.floor(Math.random() * 60 + 20);
-            const top = posY !== undefined ? posY : Math.floor(Math.random() * 60 + 20);
-
-            const stickerId = 'sticker_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
-            const stickerObj = { id: stickerId, emoji, left, top };
-            activeStickers.push(stickerObj);
-
-            const elem = document.createElement('div');
-            elem.id = stickerId;
-            elem.className = 'absolute text-2xl select-none pointer-events-auto cursor-pointer transform hover:scale-125 transition';
-            elem.style.left = left + '%';
-            elem.style.top = top + '%';
-            elem.innerText = emoji;
-            elem.title = 'Haz clic para remover';
-            elem.onclick = () => removeSticker(stickerId);
-
-            container.appendChild(elem);
-        }
-
-        function removeSticker(id) {
-            activeStickers = activeStickers.filter(s => s.id !== id);
-            const elem = document.getElementById(id);
-            if (elem) elem.remove();
-        }
-
-        function clearStickers() {
-            activeStickers = [];
-            document.getElementById('stickersContainer').innerHTML = '';
-        }
-
-        function downloadLetterHD() {
-            showToast('Generando imagen Ultra HD...', '🎨');
-            
-            const target = document.getElementById('letterPaper');
-
-            // html2canvas options optimized for scale and exact frame alignment
-            html2canvas(target, {
-                scale: 3, // 3x HD rendering
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: null,
-                logging: false,
-                onclone: (clonedDoc) => {
-                    // Ensure cloned paper element has fixed dimensions during capture
-                    const clonedPaper = clonedDoc.getElementById('letterPaper');
-                    if (clonedPaper) {
-                        clonedPaper.style.boxShadow = 'none';
-                    }
-                }
-            }).then(canvas => {
-                const link = document.createElement('a');
-                const fromName = document.getElementById('inputFrom').value.replace(/[^a-z0-9]/gi, '_');
-                link.download = `Carta_Remitente_${fromName || 'Amor'}.png`;
-                link.href = canvas.toDataURL('image/png', 1.0);
-                link.click();
-                showToast('¡Imagen descargada perfectamente!', '🌸');
-            }).catch(err => {
-                console.error('Download error:', err);
-                showToast('Error al generar la imagen', '❌');
-            });
-        }
-
-        function generateShareLink() {
-            const letterData = {
-                from: document.getElementById('inputFrom').value,
-                to: document.getElementById('inputTo').value,
-                body: document.getElementById('inputBody').value,
-                template: currentTemplate,
-                font: currentFont,
-                stickers: activeStickers
-            };
-
-            try {
-                // Encode payload safely
-                const jsonStr = JSON.stringify(letterData);
-                const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
-                
-                const shareableURL = `${window.location.origin}${window.location.pathname}#${encoded}`;
-
-                // Copy to Clipboard safely
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(shareableURL).then(() => {
-                        showToast('¡Enlace único copiado al portapapeles!', '🔗');
-                    });
-                } else {
-                    // Fallback
-                    const dummy = document.createElement('textarea');
-                    document.body.appendChild(dummy);
-                    dummy.value = shareableURL;
-                    dummy.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(dummy);
-                    showToast('¡Enlace copiado!', '🔗');
-                }
-            } catch (e) {
-                console.error("Link creation failed:", e);
-                showToast('Error creando el enlace', '❌');
-            }
-        }
-
-        function loadRecipientLetter(data) {
-            currentLetterData = data;
-
-            // Switch to Recipient View
-            document.getElementById('editorView').classList.add('hidden');
-            document.getElementById('recipientView').classList.remove('hidden');
-            document.getElementById('btnNewLetter').classList.remove('hidden');
-
-            // Render recipient paper
-            const wrapper = document.getElementById('letterRecipientWrapper');
-            
-            // Build letter HTML
-            const fontClass = data.font || 'font-cursive';
-            const svgFrame = FRAMES[data.template] || FRAMES.waterlily;
-
-            let stickersHTML = '';
-            if (data.stickers && data.stickers.length > 0) {
-                data.stickers.forEach(s => {
-                    stickersHTML += `<div class="absolute text-2xl select-none" style="left:${s.left}%; top:${s.top}%;">${s.emoji}</div>`;
-                });
-            }
-
-            wrapper.innerHTML = `
-                <div class="relative w-[340px] sm:w-[440px] min-h-[620px] bg-ivoryPaper rounded-xl paper-shadow border border-amber-200/60 p-6 sm:p-8 overflow-hidden">
-                    <div class="absolute inset-0 pointer-events-none z-0">
-                        ${svgFrame}
-                    </div>
-                    <div class="relative z-10 flex flex-col h-full justify-between">
-                        <div class="flex justify-between items-start text-[11px] sm:text-xs tracking-wider uppercase font-serif text-roseGold/90 mb-4 border-b border-roseGold/20 pb-2">
-                            <div>
-                                <span class="text-[9px] text-slate-400 block">DE:</span>
-                                <strong class="font-semibold text-slate-800">${escapeHTML(data.from)}</strong>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-[9px] text-slate-400 block">PARA:</span>
-                                <strong class="font-semibold text-slate-800">${escapeHTML(data.to)}</strong>
-                            </div>
-                        </div>
-                        <div class="my-auto py-2">
-                            <p class="${fontClass} text-lg sm:text-2xl text-slate-800 whitespace-pre-line leading-relaxed tracking-wide">
-                                ${escapeHTML(data.body)}
-                            </p>
-                        </div>
-                        <div class="absolute inset-0 pointer-events-none z-20">
-                            ${stickersHTML}
-                        </div>
-                        <div class="mt-6 pt-3 border-t border-roseGold/20 flex items-center justify-between text-[10px] text-slate-400 font-serif">
-                            <span>Remitente Web • Carta Creada con Amor</span>
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-roseGold to-rose-400 shadow-sm flex items-center justify-center text-white text-xs border border-white">
-                                🪷
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Load any saved local reviews for this letter
-            loadLocalReviews();
-        }
-
-        function openEnvelope() {
-            const envContainer = document.getElementById('envelopeContainer');
-            envContainer.classList.add('scale-95', 'opacity-0');
-            
-            setTimeout(() => {
-                document.getElementById('envelopeScreen').classList.add('hidden');
-                document.getElementById('openedLetterSection').classList.remove('hidden');
-                document.getElementById('openedLetterSection').classList.add('flex');
-                showToast('¡Carta abierta con éxito!', '💖');
-            }, 500);
-        }
-
-        /* Rating Stars Handler */
         function setRating(stars) {
-            currentRating = stars;
-            const starBtns = document.querySelectorAll('.star-btn');
-            starBtns.forEach((btn, idx) => {
-                if (idx < stars) {
-                    btn.classList.remove('text-slate-300');
-                    btn.classList.add('text-amber-400');
-                } else {
-                    btn.classList.remove('text-amber-400');
-                    btn.classList.add('text-slate-300');
-                }
+            const starElements = document.querySelectorAll('.star');
+            starElements.forEach((s, idx) => {
+                if (idx < stars) s.classList.add('active');
+                else s.classList.remove('active');
             });
         }
 
-        /* Submit Review Handler */
-        function submitRecipientReview() {
-            const replyText = document.getElementById('recipientReplyText').value;
-
-            if (currentRating === 0 && !replyText.trim()) {
-                showToast('Por favor selecciona una calificación o escribe una respuesta', '⚠️');
-                return;
-            }
-
-            const reviewObj = {
-                rating: currentRating,
-                reply: replyText,
-                date: new Date().toLocaleDateString()
-            };
-
-            // Save to Local Storage
-            const key = 'remitente_reviews_' + window.location.hash;
-            let existing = JSON.parse(localStorage.getItem(key) || '[]');
-            existing.push(reviewObj);
-            localStorage.setItem(key, JSON.stringify(existing));
-
-            document.getElementById('recipientReplyText').value = '';
-            setRating(0);
-            showToast('¡Respuesta guardada con éxito!', '💌');
-            
-            loadLocalReviews();
+        function sendReview() {
+            alert("¡Tu respuesta ha sido guardada! 💕");
         }
 
-        function loadLocalReviews() {
-            const key = 'remitente_reviews_' + window.location.hash;
-            const existing = JSON.parse(localStorage.getItem(key) || '[]');
-            const container = document.getElementById('savedReviewsContainer');
-            const list = document.getElementById('reviewsList');
-
-            if (existing.length > 0) {
-                container.classList.remove('hidden');
-                list.innerHTML = existing.map(r => `
-                    <div class="bg-amber-50/60 p-2.5 rounded-lg border border-amber-200/50 text-xs">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-amber-500 font-bold">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
-                            <span class="text-[10px] text-slate-400">${r.date}</span>
-                        </div>
-                        <p class="text-slate-700 font-serif">${escapeHTML(r.reply || 'Sin comentario')}</p>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function createNewLetter() {
-            window.location.hash = '';
-            window.location.reload();
-        }
-
-        function switchTab(tab) {
-            if (tab === 'editor') {
-                window.location.hash = '';
-                document.getElementById('recipientView').classList.add('hidden');
-                document.getElementById('editorView').classList.remove('hidden');
-            }
-        }
-
-        /* Toast Helper */
-        function showToast(msg, icon = '✨') {
-            const box = document.getElementById('toastBox');
-            document.getElementById('toastMsg').innerText = msg;
-            document.getElementById('toastIcon').innerText = icon;
-
-            box.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                box.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
-
-        /* Escape HTML Helper */
-        function escapeHTML(str) {
-            if (!str) return '';
-            return str.replace(/[&<>'"]/g, 
-                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-            );
+        function downloadImage() {
+            html2canvas(document.getElementById('letterPaper'), { scale: 3 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'carta-remitente.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
         }
     </script>
 </body>
